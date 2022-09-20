@@ -21,3 +21,6 @@ function checkStringLength(str, maxLength) {
   }
   return true;
 }
+
+getRandomNumber(1,3);
+checkStringLength('Строка',6);
