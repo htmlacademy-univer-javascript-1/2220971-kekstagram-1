@@ -62,12 +62,12 @@ function getRandomPositiveInteger (a, b) {
 }
 
 function generateComments() {
-  let comments = [];
-  let count = getRandomPositiveInteger(0, 5);
-  for (let i = 0; i < count; i++) {
-    comments.push(createComments());
+  const COMMENTS = [];
+  const COUNT = getRandomPositiveInteger(0, 5);
+  for (let i = 0; i < COUNT; i++) {
+    COMMENTS.push(createComments());
   }
-  return comments;
+  return COMMENTS;
 }
 
 function createComments() {
@@ -106,17 +106,17 @@ function checkStringLength (string, length) {
 }
 checkStringLength('str', 3);
 
-let objects = []
+const OBJECTS = [];
 for (let i = 0; i < 25; i++) {
-  objects.push(generateObj());
+  OBJECTS.push(generateObj());
 }
 
 function generateObj() {
   return {
-   id: getIdForObj(),
-   url: `photos/${getUrl()}.jpg`,
-   description: getValue(DESCRIPTIONS),
-   likes: getRandomPositiveInteger(15, 200),
-    comments: generateComments(), 
+    id: getIdForObj(),
+    url: `photos/${getUrl()}.jpg`,
+    description: getValue(DESCRIPTIONS),
+    likes: getRandomPositiveInteger(15, 200),
+    comments: generateComments(),
   };
 }
