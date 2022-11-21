@@ -1,11 +1,9 @@
 function getRandomPositiveInteger (a, b) {
-    const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-    const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  
-    const result = Math.random() * (upper - lower + 1) + lower;
-  
-    return Math.floor(result);
-  }
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+}
 
 let counterIdComm = 0;
 function getIdForComments() {
@@ -30,8 +28,8 @@ function getValue(array) {
 }
 
 function checkStringLength (string, length) {
-    return string.length <= length;
-  }
-  checkStringLength('str', 3);
+  return string.length <= length;
+}
+checkStringLength('str', 3);
 
-  export {getRandomPositiveInteger, getIdForComments, getIdForObj, getUrl, getValue};
+export {getRandomPositiveInteger, getIdForComments, getIdForObj, getUrl, getValue};

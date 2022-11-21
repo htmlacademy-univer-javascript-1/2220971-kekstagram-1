@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger, getIdForComments, getIdForObj, getUrl, getValue} from './util.js'
+import {getRandomPositiveInteger, getIdForComments, getIdForObj, getUrl, getValue} from './util.js';
 
 const NAMES = ['Кира','Лавр','Милена','Наум','Аксинья','Добрыня','Сапфира','Святослав','Феодосия','Себастьян','Весна','Оливер','Ульяна','Марк','Доминика','Мирон','Амелия','Самуил','Ривер','Адонис','Андрианна','Анатолий','Инесса','Новомир','Эльвира'];
 
@@ -84,6 +84,6 @@ function generateObj() {
 
 const OBJ_COUNT = 25;
 
-const createObjects = () => Array.from({length: OBJ_COUNT}, generateObj)
+const createObjects = () => Array.from({length: OBJ_COUNT}, generateObj);
 
 export {createObjects};
