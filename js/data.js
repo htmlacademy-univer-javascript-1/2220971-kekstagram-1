@@ -84,6 +84,12 @@ function generateObj() {
 
 const OBJ_COUNT = 25;
 
-const createObjects = () => Array.from({length: OBJ_COUNT}, generateObj);
+function createObjects() {
+  const OBJECTS = [];
+  for (let i = 0; i < OBJ_COUNT; i++) {
+    OBJECTS[i] = generateObj();
+  }
+  return OBJECTS;
+}
 
 export {createObjects};
