@@ -56,7 +56,7 @@ const MESSAGES = ['Пожалуйста, не прекращай делать э
 
 function generateComments() {
   const COMMENTS = [];
-  const COUNT = getRandomPositiveInteger(0, 5);
+  const COUNT = getRandomPositiveInteger(1, 5);
   for (let i = 0; i < COUNT; i++) {
     COMMENTS.push(createComment());
   }
