@@ -10,7 +10,7 @@ const loadComments = () => {
   const commentsItems = commentsList.children;
   const loadedCommentsCountElement = document.querySelector('.loaded-comments');
   const loadedCommentsCount = parseInt(loadedCommentsCountElement.textContent, 10);
-  const currentComments = parseInt(loadedCommentsCount, 10) + commentsCountToShow > commentsItems.length ? commentsItems.length - loadedCommentsCount : COMMENTS_TO_SHOW;
+  const currentComments = parseInt(loadedCommentsCount, 10) + commentsCountToShow > commentsItems.length ? commentsItems.length - loadedCommentsCount : commentsCountToShow;
 
   for (let i = 0; i < currentComments; i++) {
     document.querySelector('.social__comment.hidden').classList.remove('hidden');
