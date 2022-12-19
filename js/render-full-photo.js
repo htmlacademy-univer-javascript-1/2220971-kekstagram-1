@@ -1,18 +1,23 @@
-const closeButton = document.querySelector('.big-picture').querySelector('#picture-cancel');
-const bigPicture = document.querySelector('.big-picture');
+import {isEscape} from './util.js';
 
-const closeByEscape = (evt) => {
-  if (evt.key === 'Escape') {
-    document.body.classList.remove('modal-open');
-    document.querySelector('.big-picture').add('hidden');
-    document.removeEventListener('keydown', () => closeByEscape);
-  }
-};
+const bigPicture = document.querySelector('.big-picture');
+const closeButton = bigPicture.querySelector('#picture-cancel');
+const commentsList = document.querySelector('.social__comments');
+
 
 const closePhoto = () => {
-  document.body.classList.remove('modal-open');
-  document.querySelector('.big-picture').classList.add('hidden');
-  document.removeEventListener('click', () => closeByEscape);
+  bigPicture.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  bigPicture.querySelector('.big-picture__cancel').removeEventListener('click', closePhoto);
+  // eslint-disable-next-line no-use-before-define
+  document.removeEventListener('keydown', pressEscape);
+};
+
+const pressEscape = (evt) => {
+  if (isEscape(evt)) {
+    evt.preventDefault();
+    closePhoto();
+  }
 };
 
 function createNewComm (comment) {
@@ -24,7 +29,6 @@ function createNewComm (comment) {
 }
 
 const createComment = (comments) => {
-  const commentsList = bigPicture.querySelector('.social__comments');
   const fragment = document.createDocumentFragment();
   comments.forEach((comment) => {
     fragment.appendChild(createNewComm(comment));
@@ -34,15 +38,17 @@ const createComment = (comments) => {
 };
 
 const openPhoto = (photo) => {
-  document.body.classList.add('modal-open');
+  document.querySelector('body').classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img img').src = photo.url;
   bigPicture.querySelector('.likes-count').textContent = photo.likes;
   bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
   bigPicture.querySelector('.social__caption').textContent = photo.description;
+  document.querySelector('.social__comment-count').classList.add('hidden');
+  document.querySelector('.comments-loader').classList.add('hidden');
   createComment(photo.comments);
   closeButton.addEventListener('click', closePhoto);
-  document.addEventListener('keydown', closeByEscape);
+  document.addEventListener('keydown', pressEscape);
 };
 
 export {openPhoto};

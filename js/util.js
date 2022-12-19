@@ -32,4 +32,6 @@ function checkStringLength (string, length) {
 }
 checkStringLength('str', 3);
 
-export {getRandomPositiveInteger, getIdForComments, getIdForObj, getUrl, getValue};
+const isEscape = (evt) => evt.key === 'Escape';
+
+export {getRandomPositiveInteger, getIdForComments, getIdForObj, getUrl, getValue, isEscape};
