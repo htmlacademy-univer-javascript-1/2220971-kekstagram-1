@@ -1,9 +1,8 @@
-import { renderPhotos } from './pictures.js';
 import {uploadForm} from './formUpload.js';
 import {setData} from './fetch.js';
-import {showUnloadingErrorMessage} from './utils.js';
+import {onRecieveSuccess, showUnloadingErrorMessage} from './upload-data.js';
 
-setData(renderPhotos,
+setData(onRecieveSuccess,
   () => {
     showUnloadingErrorMessage('Не удалось загрузить данные из сервера :(');
   },
