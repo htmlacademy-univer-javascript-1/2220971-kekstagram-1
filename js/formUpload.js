@@ -1,35 +1,67 @@
+import { uploadHashtagInput, clearHashtagsField, checkFormValidation } from './hashtags.js';
 import { isEscape } from './utils.js';
-import { scalingPhotos, restart } from './scalingPhoto.js';
-import { doEffectsHandler, restartEffects } from './effectsOnPhoto.js';
+import { scalingPhotos } from './scalingPhoto.js';
+import { setEffects } from './effectsOnPhoto.js';
+import { setData } from './fetch.js';
+import { addPostMessages, showSuccessMessage, closeMessage, showErrorMessage } from './postMessages.js';
 
-const file = document.querySelector('#upload-file');
-const buttonCancel = document.querySelector('#upload-cancel');
+const form = document.querySelector('.img-upload__form');
 
-const imageUpload = document.querySelector('.img-upload__preview');
+const uploadingControl = form.querySelector('#upload-file');
+const uploadingOverlay = form.querySelector('.img-upload__overlay');
+const uploadingClose = form.querySelector('#upload-cancel');
 
-file.addEventListener('change',  () => {
-  document.querySelector('.img-upload__overlay').classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
-  scalingPhotos();
-  doEffectsHandler();
-});
-
-buttonCancel.addEventListener('click', () => {
-  document.querySelector('.img-upload__overlay').classList.add('hidden');
+const uploadingComments = uploadingOverlay.querySelector('.text__description');
+const uploadingButton = uploadingOverlay.querySelector('#upload-submit');
+const clearForm = () => {
+  uploadingOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  restart();
-  restartEffects();
-});
+  uploadingControl.value = '';
+  clearHashtagsField();
+  uploadingComments.value = '';
 
-const onDocumentEscKeyDown = (evt) => {
-  if(isEscape(evt) && !evt.target.classList.contains('text__description') && !evt.target.classList.contains('text__hashtags')){
-    document.querySelector('.img-upload__overlay').classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-    document.removeEventListener('keydown', onDocumentEscKeyDown);
-    restart();
-    restartEffects();
+  closeMessage();
+
+  uploadingButton.disabled = false;
+};
+
+const onEscapeKeyDown = (evt) => {
+  if(isEscape(evt) && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
+    clearForm();
+    document.removeEventListener('keydown', onEscapeKeyDown);
   }
 };
 
-document.addEventListener('keydown', onDocumentEscKeyDown);
-export {imageUpload};
+const closeForm = () => {
+  clearForm();
+
+  document.removeEventListener('keydown', onEscapeKeyDown);
+};
+
+uploadingClose.addEventListener('click', closeForm);
+
+const onUploadClick = () => {
+  document.addEventListener('keydown', onEscapeKeyDown);
+  uploadingOverlay.classList.remove('hidden');
+  document.querySelector('body').classList.add('modal-open');
+  scalingPhotos();
+  setEffects();
+  uploadHashtagInput();
+};
+
+const uploadForm = () => {
+  uploadingControl.addEventListener('change', onUploadClick);
+  addPostMessages();
+};
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  if(checkFormValidation()) {
+    setData(showSuccessMessage, showErrorMessage, 'POST', new FormData(form));
+  }
+};
+
+form.addEventListener('submit', onFormSubmit);
+
+export{uploadForm, closeForm, onEscapeKeyDown};
