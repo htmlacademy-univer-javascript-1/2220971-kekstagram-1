@@ -30,8 +30,8 @@ const renderPhotos = (images) => {
 
 const removePhotos = () => {
   const oldPictures = pictures.querySelectorAll('.picture');
-  oldPictures.forEach((p) => {
-    p.remove();
+  oldPictures.forEach((picture) => {
+    picture.remove();
   });
 };
 
